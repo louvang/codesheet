@@ -1,0 +1,14 @@
+@import '../vars.scss';
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $gray2;
+  padding: 1rem;
+
+  .logoContainer {
+    font-weight: 700;
+    font-size: 1.75rem;
+  }
+}

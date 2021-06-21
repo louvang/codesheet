@@ -1,0 +1,191 @@
+@import '../vars.scss';
+
+.sidebar {
+  border-right: 1px solid $gray2;
+  height: 100vh;
+  width: 240px;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $gray2;
+  height: 58px;
+
+  .colLogo {
+    img {
+      border-radius: 50%;
+      margin: 12px 8px 10px 12px;
+    }
+  }
+
+  .colName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    width: 166px;
+  }
+
+  .colMore {
+    width: 30px;
+  }
+}
+
+.searchRow {
+  border-bottom: 1px solid $gray2;
+  height: 55px;
+
+  .searchBar {
+    margin: 10px 10px 8px 12px;
+    position: relative;
+
+    .colSearchInput {
+      #searchInput {
+        margin: 4px 10px 6px 0px;
+        border: 2px solid $gray2;
+        border-radius: 12px;
+        padding: 10px 32px 8px 34px;
+        width: 147px;
+      }
+
+      #searchInput::placeholder {
+        color: $gray3;
+      }
+
+      #searchInput:focus {
+        outline: none;
+        border-radius: 12px;
+        border: 2px solid $gray4;
+      }
+    }
+
+    .colSearchIcon {
+      position: absolute;
+      left: 12px;
+      top: 15px;
+    }
+
+    .colSearchDel {
+      position: absolute;
+      right: 12px;
+      top: 15px;
+      color: $gray3;
+    }
+
+    .colSearchDel:hover {
+      color: $gray5;
+      cursor: pointer;
+      transition: ease-in 0.2s;
+    }
+  }
+}
+
+.listSection {
+  border-bottom: 1px solid $gray2;
+  padding-bottom: 10px;
+  overflow: hidden auto;
+  height: calc(60vh - 79px - 11px);
+
+  .listRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .listRow:hover {
+    background-color: $gray1;
+    cursor: pointer;
+  }
+
+  .colLeft {
+    display: flex;
+
+    .colIcon {
+      margin: 0 12px;
+    }
+
+    .colCatTitle {
+      width: 110px;
+    }
+  }
+
+  .colRight {
+    text-align: right;
+    margin-right: 12px;
+
+    .sheetCt {
+      background-color: $gray5;
+      color: $gray1;
+      font-size: 0.75rem;
+      border-radius: 6px;
+      padding: 2px 5px;
+    }
+  }
+}
+
+.tagsSection {
+  overflow: hidden auto;
+  height: calc(40vh - 79px - 10px);
+
+  .tagsList {
+    width: 216px;
+    margin: 12px;
+    align-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+
+    .tag {
+      font-size: 0.875rem;
+      padding: 3px 6px;
+      background-color: $gray1;
+      border-radius: 6px;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .tag:hover {
+      background-color: $gray5;
+      color: $gray1;
+      cursor: pointer;
+      transition: ease-in 0.1s;
+    }
+  }
+}
+
+.newSheetRow {
+  // position: absolute;
+  // bottom: 0;
+  border-top: 1px solid $gray2;
+  width: 240px;
+  height: 42px;
+
+  .newSheetBtn {
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    color: #000;
+    text-align: left;
+    padding-left: 12px;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+
+  .newSheetBtn:hover {
+    background-color: $gray1;
+    transition: ease-in 0.2s;
+  }
+}
+
+.sectionTitle {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: $gray3;
+  margin: 12px;
+  margin-bottom: 10px;
+}

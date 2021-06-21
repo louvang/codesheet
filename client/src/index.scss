@@ -1,0 +1,185 @@
+@import 'vars.scss';
+
+html {
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  font-family: $mainFont;
+}
+
+code,
+pre {
+  font-family: $codeFont;
+  background-color: $gray1;
+  padding: 1px 3px;
+  font-size: 0.875rem;
+}
+
+pre {
+  padding: 2rem;
+}
+
+/** Pages without a Header and/or Sidebar (eg. Login, Register) **/
+.landing-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .auth-landing {
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .login-error {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .label-container {
+      font-size: 0.875rem;
+      margin-bottom: 3px;
+      width: 100%;
+      max-width: 275px;
+
+      ul {
+        margin: 0 0 0.25rem;
+        padding: 0 0 0 1rem;
+      }
+    }
+
+    .input-container {
+      width: 250px;
+      margin-bottom: 0.75rem;
+
+      input {
+        width: 100%;
+        height: 30px;
+        padding-left: 8px;
+        padding-right: 8px;
+        border: 1px solid #333;
+        border-radius: 3px;
+        font-size: 1rem;
+      }
+    }
+
+    .button-container {
+      width: 270px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+/** General Styling **/
+.container-with-sb {
+  display: flex;
+}
+
+.content-container {
+  margin: 1rem 3rem;
+  line-height: 140%;
+}
+
+.sheet-container {
+  margin: 1rem 3rem;
+  line-height: 140%;
+  margin-left: calc(240px + 3rem);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  .sheet-settings {
+    margin: 0 -2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+
+    .cat-title {
+      display: flex;
+      font-size: 1.125rem;
+
+      div {
+        margin-left: 3px;
+      }
+    }
+
+    .settings-btn {
+      margin-left: 1rem;
+      background-color: none;
+
+      div {
+        margin-right: 3px;
+      }
+    }
+  }
+}
+
+.flex {
+  display: flex;
+}
+
+.space-between {
+  justify-items: space-between;
+}
+
+.valign-center {
+  align-items: center;
+}
+
+.red {
+  color: red;
+  font-weight: 700;
+  width: 100%;
+}
+
+input {
+  font-family: $mainFont;
+}
+
+button {
+  background-color: $gray3;
+  font-size: 1rem;
+  color: #fff;
+  padding-left: 8px;
+  padding-right: 8px;
+  height: 34px;
+  border: 0;
+  border-radius: 3px;
+}
+
+button:hover {
+  background-color: $gray4;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.col-container {
+  display: flex;
+}
+
+.col-3 {
+  width: 30%;
+}
+
+a {
+  color: $mainAccent;
+}
+
+a:hover {
+  color: $secondAccent;
+}
