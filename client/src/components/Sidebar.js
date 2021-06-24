@@ -19,7 +19,7 @@ export default function Sidebar(props) {
         <div className={styles.colLogo}>
           <img src={Logo} alt="Codesheets Logo" />
         </div>
-        <div className={styles.colName}>{props.userData.name}'s Sheets</div>
+        <div className={styles.colName}>Lou's Sheets</div>
         <div className={styles.colMore}>
           <img src={SettingsIcon} alt="Settings Icon" />
         </div>

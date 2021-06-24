@@ -16,7 +16,7 @@ const Routes = () => {
         <Route exact path="/register" component={redirectLoggedIn(Register)} />
         <Route exact path="/login" component={redirectLoggedIn(Login)} />
         <Route exact path="/settings" component={requireAuth(Settings)} />
-        <Route exact path="/sheet" component={requireAuth(Sheet)} />
+        <Route exact path="/sheet" component={Sheet} />
       </Switch>
     </BrowserRouter>
   );
