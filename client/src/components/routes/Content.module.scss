@@ -1,0 +1,274 @@
+@import '../../vars.scss';
+
+.contentContainer {
+  margin: 1rem 2rem 4rem;
+  width: 100%;
+  line-height: 140%;
+  margin-left: calc(240px + 2rem);
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 2rem 0 1.125rem;
+    border-bottom: 1px solid $gray3;
+    line-height: 100%;
+    padding-bottom: 4px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  h5 {
+    font-size: 1.25rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  p {
+    margin-top: 0;
+  }
+
+  blockquote {
+    border-left: 5px solid $gray3;
+
+    p {
+      margin: 1rem;
+    }
+  }
+
+  table {
+    border: 1px solid $gray3;
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+
+  th,
+  td {
+    border: 1px solid $gray3;
+    padding: 5px 10px;
+  }
+
+  details {
+    margin: auto 0rem 1rem;
+    font-weight: 300;
+
+    summary {
+      font-weight: 700;
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      text-decoration: underline;
+    }
+  }
+
+  pre,
+  code {
+    font-family: $codeFont;
+    color: $gray1;
+    background-color: #2b2b2b;
+    padding: 1px 3px;
+    font-size: 0.875rem;
+    border-radius: 5px;
+  }
+
+  pre {
+    padding: 2rem;
+    border-radius: 8px;
+  }
+}
+
+.sheetSettings {
+  width: 100%;
+  margin-bottom: 4rem;
+  display: flex;
+  justify-content: space-between;
+
+  .catTitle {
+    display: flex;
+    font-size: 1.125rem;
+    align-items: center;
+
+    .selectWrapper {
+      position: relative;
+      width: 250px;
+
+      div {
+        position: absolute;
+        top: 4px;
+        right: 5px;
+        z-index: 1;
+      }
+    }
+
+    select {
+      margin: 0;
+      padding: 6px 30px 6px 6px;
+      font-size: 1.125rem;
+      border: 1px solid $gray3;
+      border-radius: 8px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-overflow: '';
+      width: 100%;
+    }
+
+    div {
+      margin-left: 3px;
+    }
+
+    div:hover {
+      color: $mainAccent;
+      cursor: pointer;
+      transition: ease-in 0.2s;
+    }
+
+    .saveBtn {
+      background-color: $mainAccent;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      margin-left: 0.25rem;
+      cursor: pointer;
+      padding: 5px 10px 5px 5px;
+      border-radius: 8px;
+
+      div {
+        margin-right: 3px;
+      }
+    }
+
+    .saveBtn:hover {
+      color: #fff;
+      background-color: $secondAccent;
+      transition: ease-in 0.2s;
+    }
+  }
+
+  .settingsBtn {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    cursor: pointer;
+
+    div {
+      margin-right: 3px;
+    }
+  }
+
+  .settingsBtn:hover {
+    color: $mainAccent;
+    transition: ease-in 0.2s;
+  }
+}
+
+.sheet {
+  width: 90%;
+  margin: 0 auto;
+
+  textarea {
+    width: calc(100% - 40px);
+    height: calc(100vh - 12rem);
+    font-family: $codeFont;
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    padding: 20px;
+  }
+}
+
+.newSheet {
+  width: 100%;
+  margin: 0 auto;
+
+  textarea {
+    width: calc(100% - 40px);
+    height: calc(100vh - 15rem);
+    font-family: $codeFont;
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    padding: 20px;
+    font-size: 1.125rem;
+  }
+}
+
+.delConfirmBtns {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+
+  .yes {
+    width: 60px;
+    background-color: $mainAccent;
+    margin: 0 0.5rem;
+  }
+
+  .yes:hover {
+    opacity: 0.75;
+    transition: ease-in 0.2s;
+  }
+
+  .no {
+    width: 60px;
+    background-color: $gray4;
+    margin: 0 0.5rem;
+  }
+
+  .no:hover {
+    opacity: 0.75;
+    transition: ease-in 0.2s;
+  }
+}
+
+.newSheetSettings {
+  margin-bottom: 1rem;
+}
+
+.addTags {
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.125rem;
+
+  label {
+    margin-right: 6px;
+  }
+
+  input {
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    padding: 6px;
+    width: 100%;
+    font-size: 1.125rem;
+  }
+}
+
+.newSaveBtn {
+  margin-top: 0.5rem;
+
+  button {
+    width: 100%;
+    background-color: $mainAccent;
+    border-radius: 8px;
+  }
+
+  button:hover {
+    background-color: $secondAccent;
+    transition: ease-in 0.2s;
+  }
+}

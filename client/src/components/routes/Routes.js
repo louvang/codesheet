@@ -4,7 +4,9 @@ import App from './App';
 import Register from './Register';
 import Login from './Login';
 import Sheet from './Sheet';
+import NewSheet from './NewSheet';
 import Settings from './Settings';
+import AllCategories from './AllCategories';
 import requireAuth from '../wrappers/RequireAuth';
 import redirectLoggedIn from '../wrappers/RedirectLoggedIn';
 
@@ -17,6 +19,7 @@ const Routes = () => {
         <Route exact path="/login" component={redirectLoggedIn(Login)} />
         <Route exact path="/settings" component={requireAuth(Settings)} />
         <Route exact path="/sheet" component={Sheet} />
+        <Route exact path="/sheet/new" component={NewSheet} />
       </Switch>
     </BrowserRouter>
   );

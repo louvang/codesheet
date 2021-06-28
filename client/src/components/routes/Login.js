@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from './Landing.module.scss';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -24,13 +25,13 @@ export default function Login() {
   };
 
   return (
-    <div className="landing-container">
-      <div className="auth-landing">
+    <div className={styles.landingContainer}>
+      <div className={styles.authLanding}>
         <h1>Log in</h1>
 
-        {showLoginErrMsg ? <div className="red login-error">Wrong username or password.</div> : null}
+        {showLoginErrMsg ? <div className={`red ${styles.loginError}`}>Wrong username or password.</div> : null}
 
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="text"
             name="email"
@@ -41,7 +42,7 @@ export default function Login() {
             required
           />
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="password"
             name="password"
@@ -52,7 +53,7 @@ export default function Login() {
             required
           />
         </div>
-        <div className="button-container">
+        <div className={styles.buttonContainer}>
           <button type="submit" onClick={login}>
             Log In
           </button>

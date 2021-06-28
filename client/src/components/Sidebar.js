@@ -13,6 +13,11 @@ import HTMLIcon from '../assets/icons/html.svg';
 import CSSIcon from '../assets/icons/css.svg';
 
 export default function Sidebar(props) {
+  const newSheetClick = (e) => {
+    e.preventDefault();
+    window.location.href = '/sheet/new';
+  };
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.userRow}>
@@ -264,7 +269,9 @@ export default function Sidebar(props) {
       </div>
 
       <div className={styles.newSheetRow}>
-        <button className={styles.newSheetBtn}>+ Add new sheet</button>
+        <button className={styles.newSheetBtn} onClick={newSheetClick}>
+          + Add new sheet
+        </button>
       </div>
     </div>
   );

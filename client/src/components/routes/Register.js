@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styles from './Landing.module.scss';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -87,14 +88,14 @@ export default function Register() {
   };
 
   return (
-    <div className="landing-container">
-      <div className="auth-landing">
+    <div className={styles.landingContainer}>
+      <div className={styles.authLanding}>
         <h1>Sign up</h1>
-        <div className="label-container">
+        <div className={styles.labelContainer}>
           <label htmlFor="name">Name*</label>
           {showNameRequiredMsg ? <div className="red">Name required.</div> : null}
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="text"
             name="name"
@@ -104,7 +105,7 @@ export default function Register() {
             required
           />
         </div>
-        <div className="label-container">
+        <div className={styles.labelContainer}>
           <label htmlFor="email">Email*</label>
           {showEmailAlreadyRegisteredMsg ? (
             <div className="red">
@@ -113,7 +114,7 @@ export default function Register() {
           ) : null}
           {showInvalidEmailMsg ? <div className="red">Invalid email address.</div> : null}
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="text"
             name="email"
@@ -123,7 +124,7 @@ export default function Register() {
             required
           />
         </div>
-        <div className="label-container">
+        <div className={styles.labelContainer}>
           <label htmlFor="password">Password*</label>
           {showInvalidPasswordMsg ? (
             <div className="red">
@@ -136,7 +137,7 @@ export default function Register() {
             </div>
           ) : null}
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="password"
             name="password"
@@ -146,11 +147,11 @@ export default function Register() {
             required
           />
         </div>
-        <div className="label-container">
+        <div className={styles.labelContainer}>
           <label htmlFor="confirm_password">Confirm Password*</label>
           {showPasswordMatchMsg ? <div className="red">Your password does not match.</div> : null}
         </div>
-        <div className="input-container">
+        <div className={styles.inputContainer}>
           <input
             type="password"
             name="confirm_password"
@@ -160,7 +161,7 @@ export default function Register() {
             required
           />
         </div>
-        <div className="button-container">
+        <div className={styles.buttonContainer}>
           <button type="submit" onClick={submitRegistration}>
             Register
           </button>

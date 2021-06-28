@@ -1,19 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
-import styles from './Sheet.module.scss';
+import styles from './Content.module.scss';
 import Sidebar from '../Sidebar';
 import marked from 'marked';
 import DOMPurify from 'dompurify';
 import hljs from 'highlight.js';
 import '../../a11y-dark.scss';
 import tabOverride from 'taboverride';
+import Modal from 'react-modal';
 
 import EditIcon from '../../assets/teeny-edit.svg';
 import EditFillIcon from '../../assets/teeny-edit-fill.svg';
 import DeleteIcon from '../../assets/teeny-delete.svg';
 import SaveIcon from '../../assets/teeny-save.svg';
+import DownIcon from '../../assets/teeny-down-caret.svg';
+
+Modal.setAppElement('#root');
+
+const customStyles = {
+  content: {
+    top: '30%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    fontSize: '1.25rem',
+  },
+};
 
 export default function Sheet(props) {
+  const [modalOpened, setModalOpened] = useState(false);
   const [editCategory, setEditCategory] = useState(false);
   const [catTitle, setCatTitle] = useState('Category Title Here');
   const [editMode, setEditMode] = useState(false);
@@ -94,6 +111,20 @@ Their intended excursion to Whitwell turned ${'`'}out${'`'} very different from 
       tabOverride.tabSize(2);
     }
   });
+
+  const openModal = () => {
+    setModalOpened(true);
+  };
+
+  const closeModal = () => {
+    setModalOpened(false);
+  };
+
+  const deleteSheet = () => {
+    // move sheet to trashbin category
+    // redirect to all sheets
+    console.log('deleted');
+  };
 
   const handleEditCategoryClick = () => {
     setEditCategory(true);
@@ -177,9 +208,20 @@ Their intended excursion to Whitwell turned ${'`'}out${'`'} very different from 
         <div className={styles.settingsBtn} onClick={handleEditClick}>
           <ReactSVG src={EditFillIcon} /> Edit
         </div>
-        <div className={styles.settingsBtn}>
+        <div className={styles.settingsBtn} onClick={openModal}>
           <ReactSVG src={DeleteIcon} /> Delete
         </div>
+        <Modal isOpen={modalOpened} onRequestClose={closeModal} style={customStyles} contentLabel="Delete Modal">
+          <div>Are you sure you want to delete this sheet?</div>
+          <div className={styles.delConfirmBtns}>
+            <button className={styles.yes} onClick={deleteSheet}>
+              Yes
+            </button>
+            <button className={styles.no} onClick={closeModal}>
+              Cancel
+            </button>
+          </div>
+        </Modal>
       </div>
     );
 
@@ -190,8 +232,18 @@ Their intended excursion to Whitwell turned ${'`'}out${'`'} very different from 
   if (editCategory) {
     categoryTitle = (
       <div className={styles.catTitle}>
-        <input type="text" value={catTitle} onChange={handleCatInputChange} />{' '}
-        <ReactSVG src={SaveIcon} onClick={handleSaveCategoryClick} />
+        <div className={styles.selectWrapper}>
+          <select name="categoryTitle">
+            <option value="title0">Category Title 0</option>
+            <option value="title1">Category Title 1</option>
+            <option value="title2">Category Title 2</option>
+            <option value="title3">Category Title 3 a5sd4ads</option>
+          </select>
+          <ReactSVG src={DownIcon} />
+        </div>
+        <div className={styles.saveBtn} onClick={handleSaveCategoryClick}>
+          <ReactSVG src={SaveIcon} /> Save
+        </div>
       </div>
     );
   } else {
@@ -206,7 +258,7 @@ Their intended excursion to Whitwell turned ${'`'}out${'`'} very different from 
     <div className="container-with-sb">
       <Sidebar />
 
-      <div className={styles.sheetContainer}>
+      <div className={styles.contentContainer}>
         <div className={styles.sheetSettings}>
           {categoryTitle}
           {btns}
