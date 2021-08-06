@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import slug from 'slug';
 import Sidebar from '../Sidebar';
@@ -9,6 +10,9 @@ import tabOverride from 'taboverride';
 import DownIcon from '../../assets/teeny-down-caret.svg';
 
 export default function NewSheet(props) {
+  const { userId, sheetTitle } = useParams();
+
+  const [userData, setUserData] = useState();
   const [content, setContent] = useState(`# Heading 1`);
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
@@ -22,6 +26,10 @@ export default function NewSheet(props) {
   });
 
   useEffect(() => {
+    if (props.userData) {
+      setUserData(props.userData);
+    }
+
     axios
       .get(`/api/categories_from/${props.userData.id}`)
       .then((res) => {
@@ -35,7 +43,25 @@ export default function NewSheet(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [props.userData.id]);
+
+    axios
+      .get(`/api/${userId}/sheet/${sheetTitle}`)
+      .then((sheetRes) => {
+        let sheetData = sheetRes.data;
+        setCategory(sheetData.category);
+        setTitle(sheetData.title);
+        setContent(sheetData.content);
+
+        axios.get(`/api/sheet_tags/${sheetData._id}`).then((tagRes) => {
+          let tagData = tagRes.data;
+          let tagArr = tagData.map((tag) => `#${tag.tagTitle}`);
+          setTags(tagArr.join(', '));
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.userData, props.userData.id, sheetTitle, userId]);
 
   const handleSaveClick = () => {
     let userId = props.userData.id;
@@ -43,7 +69,7 @@ export default function NewSheet(props) {
     const data = { category, tags, title, content, userId, titleSlug };
 
     axios
-      .post('/api/add_sheet', data)
+      .post(`/api/${userId}/edit_sheet/${sheetTitle}/`, data)
       .then((res) => {
         // TODO: Go to created sheet page
         window.location = `/${userId}/sheet/${titleSlug}`;
@@ -84,7 +110,7 @@ export default function NewSheet(props) {
 
   return (
     <div className="container-with-sb">
-      <Sidebar />
+      <Sidebar userData={userData} />
 
       <div className="sb-content-container2">
         <div className={`${styles.sheetSettings} ${styles.newSheetSettings}`}>

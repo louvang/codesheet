@@ -35,6 +35,7 @@ require('./services/passport');
 
 // Routes
 require('./routes/auth')(app);
+require('./routes/sheets')(app);
 
 // Serving assets from client build for Heroku deployment
 if (process.env.NODE_ENV === 'production') {

@@ -104,6 +104,7 @@
     display: flex;
     font-size: 1.125rem;
     align-items: center;
+    font-weight: 700;
 
     .selectWrapper {
       position: relative;
@@ -148,6 +149,7 @@
       cursor: pointer;
       padding: 5px 10px 5px 5px;
       border-radius: 8px;
+      font-weight: 300;
 
       div {
         margin-right: 3px;
@@ -190,6 +192,80 @@
     border-radius: 8px;
     padding: 20px;
   }
+
+  label {
+    margin-right: 8px;
+    font-size: 1.125rem;
+  }
+
+  input {
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    padding: 6px;
+    width: 100%;
+  }
+
+  .flexvCenter {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .flexvTop {
+    margin-bottom: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .allIcons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    margin: 0 -0.5rem;
+  }
+
+  .iconContainer {
+    width: 70px;
+    height: 70px;
+    padding: 1rem;
+    border: 1px solid $gray3;
+    text-align: center;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 0 0.5rem 1rem;
+    background-color: white;
+
+    div {
+      text-align: center;
+      width: 100%;
+      margin: 14px 0 10px;
+      pointer-events: none;
+    }
+
+    .iconName {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $gray4;
+      pointer-events: none;
+    }
+  }
+
+  .iconContainer:hover,
+  .selectedIcon {
+    border: 3px solid $gray5;
+    cursor: pointer;
+    transition: ease-in 0.2s;
+    margin-top: -2px;
+    margin-left: calc(0.5rem - 2px);
+    margin-bottom: calc(1rem - 2px);
+    margin-right: calc(0.5rem - 2px);
+  }
 }
 
 .newSheet {
@@ -198,16 +274,17 @@
 
   textarea {
     width: calc(100% - 40px);
-    height: calc(100vh - 15rem);
+    height: calc(100vh - 19rem);
     font-family: $codeFont;
     border: 1px solid $gray3;
     border-radius: 8px;
     padding: 20px;
     font-size: 1.125rem;
+    margin-bottom: 0.75rem;
   }
 }
 
-.delConfirmBtns {
+.confirmBtns {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
@@ -239,7 +316,7 @@
   margin-bottom: 1rem;
 }
 
-.addTags {
+.newSheetRow {
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -270,5 +347,75 @@
   button:hover {
     background-color: $secondAccent;
     transition: ease-in 0.2s;
+  }
+}
+
+.modalHeading {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.modalRow {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  label {
+    font-size: 1rem;
+    padding: 0 0.5rem 0 0;
+  }
+
+  input {
+    border: 1px solid $gray3;
+    border-radius: 8px;
+    padding: 6px;
+    width: calc(100% - 12px);
+    font-size: 1.125rem;
+  }
+}
+
+.space {
+  width: 40px;
+}
+
+ul.listSheets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  li.listCategoryTitle {
+    margin-bottom: 3rem;
+
+    h2 {
+      border-bottom: 1px solid $gray2;
+      padding-bottom: 3px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      a {
+        color: $gray5;
+        text-decoration: underline;
+      }
+
+      li {
+        h3 {
+          margin: 0;
+          padding: 0;
+        }
+
+        p {
+          margin: 0 0 1rem;
+          padding: 0;
+        }
+      }
+    }
   }
 }

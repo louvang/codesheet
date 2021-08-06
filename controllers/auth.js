@@ -45,7 +45,7 @@ exports.login_post = (req, res, next) => {
 // Get user info (check if user is logged in)
 exports.current_user_get = (req, res) => {
   if (req.user) {
-    res.send({ name: req.user.name });
+    res.send({ name: req.user.name, id: req.user.id });
   } else {
     res.send(null);
   }

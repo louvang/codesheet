@@ -5,9 +5,13 @@ import Register from './Register';
 import Login from './Login';
 import Sheet from './Sheet';
 import NewSheet from './NewSheet';
+import EditSheet from './EditSheet';
 import Settings from './Settings';
-import AllCategories from './AllCategories';
+import AllSheets from './AllSheets';
+import NewCategory from './NewCategory';
+import Category from './Category';
 import requireAuth from '../wrappers/RequireAuth';
+import semiAuth from '../wrappers/SemiAuth';
 import redirectLoggedIn from '../wrappers/RedirectLoggedIn';
 
 const Routes = () => {
@@ -18,8 +22,13 @@ const Routes = () => {
         <Route exact path="/register" component={redirectLoggedIn(Register)} />
         <Route exact path="/login" component={redirectLoggedIn(Login)} />
         <Route exact path="/settings" component={requireAuth(Settings)} />
-        <Route exact path="/sheet" component={Sheet} />
-        <Route exact path="/sheet/new" component={NewSheet} />
+        <Route exact path="/:userId/sheet/:sheetTitle" component={semiAuth(Sheet)} />
+        <Route exact path="/:userId/sheet/edit/:sheetTitle" component={requireAuth(EditSheet)} />
+        <Route exact path="/sheet/new" component={requireAuth(NewSheet)} />
+        <Route exact path="/sheet/all" component={AllSheets} />
+        <Route exact path="/category/new" component={requireAuth(NewCategory)} />
+        {/* <Route exact path="/category" component={Category} /> */}
+        <Route exact path="/:userId/category/:categoryTitle" component={Category} />
       </Switch>
     </BrowserRouter>
   );

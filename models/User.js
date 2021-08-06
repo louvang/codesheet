@@ -7,7 +7,6 @@ const userSchema = new Schema({
   password: String,
   dateCreated: Date,
   lastActive: Date,
-  imgURL: String,
 });
 
 userSchema.virtual('username').get(function () {

@@ -8,7 +8,8 @@ const sheetSchema = new Schema({
   dateCreated: Date,
   lastUpdated: Date,
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
-  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
+  tags: [String],
+  createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
 });
 
-module.exports = mongoose.model('Sheet', userSchema);
+module.exports = mongoose.model('Sheet', sheetSchema);
