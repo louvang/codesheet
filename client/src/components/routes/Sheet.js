@@ -35,6 +35,7 @@ export default function Sheet(props) {
   const [modalOpened, setModalOpened] = useState(false);
   const [catTitle, setCatTitle] = useState('');
   const [markdown, setMarkdown] = useState('');
+  const [sheetId, setSheetId] = useState();
 
   useEffect(() => {
     if (props.userData) {
@@ -59,6 +60,7 @@ export default function Sheet(props) {
             console.log(err);
           });
 
+        setSheetId(sheetData._id);
         setMarkdown(sheetData.content);
       })
       .catch((err) => {
@@ -75,8 +77,16 @@ export default function Sheet(props) {
   };
 
   const deleteSheet = () => {
-    // move sheet to trashbin category
-    // redirect to all sheets
+    // TODO: remove sheet from database
+    axios
+      .get(`/api/delete_sheet/${sheetId}`)
+      .then((res) => {
+        window.location = `/sheets`;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     console.log('deleted');
   };
 

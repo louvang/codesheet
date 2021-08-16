@@ -28,7 +28,7 @@ const Routes = () => {
         <Route exact path="/sheet/all" component={AllSheets} />
         <Route exact path="/category/new" component={requireAuth(NewCategory)} />
         {/* <Route exact path="/category" component={Category} /> */}
-        <Route exact path="/:userId/category/:categoryTitle" component={Category} />
+        <Route exact path="/:userId/category/:categoryTitle" component={semiAuth(Category)} />
       </Switch>
     </BrowserRouter>
   );

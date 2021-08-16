@@ -8,38 +8,52 @@ import styles from './Content.module.scss';
 import AddIcon from '../../assets/teeny-add.svg';
 
 export default function Category(props) {
-  const [title, setTitle] = useState('');
   const { userId, categoryTitle } = useParams();
 
+  const [userData, setUserData] = useState();
+  const [authorLoggedIn, setAuthorLoggedIn] = useState(false);
+  const [title, setTitle] = useState('');
+  const [sheets, setSheets] = useState([]);
+
   useEffect(() => {
+    if (props.userData) {
+      if (props.userData.id === userId) {
+        setAuthorLoggedIn(true);
+      }
+      setUserData(props.userData);
+    }
+
     axios
-      .get(`/api/${userId}/category/${categoryTitle}`)
+      .get(`/api/${userId}/category/title/${categoryTitle}`)
       .then((res) => {
         let data = res.data;
+        setSheets(data.sheets);
         setTitle(data.title);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [categoryTitle, userId]);
+  }, [categoryTitle, userId, props.userData, sheets]);
 
   const goToAddCategoryPage = () => {
-    window.location = '/category/add';
+    window.location = '/category/new';
   };
 
   return (
     <div className="container-with-sb">
-      <Sidebar />
+      <Sidebar userData={userData} />
 
       <div className="sb-content-container">
         <div className={`${styles.sheetSettings}`}>
           <div className={styles.catTitle}>
-            <Link to="/sheet/all">View All Sheets</Link>
+            <Link to="/sheet/all">View {authorLoggedIn ? 'All' : "User's"} Sheets</Link>
           </div>
           <div className="flex">
-            <div className={styles.settingsBtn} onClick={goToAddCategoryPage}>
-              <ReactSVG src={AddIcon} /> Add New Category
-            </div>
+            {authorLoggedIn ? (
+              <div className={styles.settingsBtn} onClick={goToAddCategoryPage}>
+                <ReactSVG src={AddIcon} /> Add New Category
+              </div>
+            ) : null}
           </div>
         </div>
         <div className={styles.sheet}>

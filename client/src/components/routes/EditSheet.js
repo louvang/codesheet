@@ -9,7 +9,7 @@ import tabOverride from 'taboverride';
 
 import DownIcon from '../../assets/teeny-down-caret.svg';
 
-export default function NewSheet(props) {
+export default function EditSheet(props) {
   const { userId, sheetTitle } = useParams();
 
   const [userData, setUserData] = useState();
@@ -71,7 +71,6 @@ export default function NewSheet(props) {
     axios
       .post(`/api/${userId}/edit_sheet/${sheetTitle}/`, data)
       .then((res) => {
-        // TODO: Go to created sheet page
         window.location = `/${userId}/sheet/${titleSlug}`;
       })
       .catch((err) => {
