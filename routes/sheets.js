@@ -7,9 +7,12 @@ const {
   get_category_by_title,
   get_category_by_id,
   get_tag_by_sheet,
+  get_tag_by_id,
   get_all_tags_from_user,
   delete_sheet,
   get_sheets_by_category,
+  get_sheets_by_author,
+  get_sheets_by_tagTitle,
 } = require('../controllers/sheets');
 
 const requireLogin = require('../middlewares/requireLogin');
@@ -36,4 +39,10 @@ module.exports = (app) => {
   app.get('/api/delete_sheet/:sheetId', requireLogin, delete_sheet);
 
   app.get('/api/:userId/sheets_by_category/:categoryId', get_sheets_by_category);
+
+  app.get('/api/:userId/sheets_by_author', get_sheets_by_author);
+
+  app.get('/api/:userId/tags_by_id/:tagId', get_tag_by_id);
+
+  app.get('/api/:userId/sheets_by_tag/:tagTitle', get_sheets_by_tagTitle);
 };

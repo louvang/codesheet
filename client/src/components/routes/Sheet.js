@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ReactSVG } from 'react-svg';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styles from './Content.module.scss';
 import Sidebar from '../Sidebar';
 import marked from 'marked';
@@ -34,6 +34,7 @@ export default function Sheet(props) {
   const [authorLoggedIn, setAuthorLoggedIn] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
   const [catTitle, setCatTitle] = useState('');
+  const [catSlug, setCatSlug] = useState('');
   const [markdown, setMarkdown] = useState('');
   const [sheetId, setSheetId] = useState();
 
@@ -55,6 +56,7 @@ export default function Sheet(props) {
           .then((catRes) => {
             let catData = catRes.data;
             setCatTitle(catData.title);
+            setCatSlug(catData.slug);
           })
           .catch((err) => {
             console.log(err);
@@ -77,7 +79,6 @@ export default function Sheet(props) {
   };
 
   const deleteSheet = () => {
-    // TODO: remove sheet from database
     axios
       .get(`/api/delete_sheet/${sheetId}`)
       .then((res) => {
@@ -86,8 +87,6 @@ export default function Sheet(props) {
       .catch((err) => {
         console.log(err);
       });
-
-    console.log('deleted');
   };
 
   const getHTML = () => {
@@ -127,7 +126,7 @@ export default function Sheet(props) {
   };
 
   const handleEditClick = () => {
-    window.location = `/${userId}/sheet/edit/${sheetTitle}`;
+    window.location = `/${userId}/edit-sheet/${sheetTitle}`;
   };
 
   let btns = (
@@ -156,7 +155,7 @@ export default function Sheet(props) {
 
   let categoryTitle = (
     <div className={styles.catTitle}>
-      <a href="/category">{catTitle}</a>
+      <Link to={`/${userId}/category/${catSlug}`}>{catTitle}</Link>
     </div>
   );
 

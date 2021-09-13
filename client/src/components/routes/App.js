@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserData, selectAuthStatus, fetchUser } from '../../redux/authSlice';
 import Header from '../Header';
 import Sidebar from '../Sidebar';
-import Content from '../Content';
+import Dashboard from '../Dashboard';
 
 export default function App() {
   document.title = 'Codesheets: Note-taking for developers';
@@ -24,7 +24,7 @@ export default function App() {
         <div className="container-with-sb">
           <Sidebar userData={userData} />
           {/* <Content data={userData.lastOpened} /> */}
-          <Content userData={userData} />
+          <Dashboard userData={userData} />
         </div>
       );
       break;

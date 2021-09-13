@@ -30,6 +30,22 @@ button:hover {
   transition: 0.2s;
 }
 
+button.main {
+  background-color: $mainAccent;
+}
+
+button.main:hover {
+  background-color: $secondAccent;
+}
+
+button.secondary {
+  background-color: $secondAccent;
+}
+
+button.secondary:hover {
+  background-color: $mainAccent;
+}
+
 a {
   color: $mainAccent;
 }
@@ -87,4 +103,37 @@ a:hover {
 
 .col-3 {
   width: 30%;
+}
+
+/** Basics **/
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.vCenter {
+  align-items: center;
+}
+
+.spaceEvenly {
+  justify-content: center;
+}
+
+.spaceBtwn {
+  justify-content: space-between;
+}
+
+.margin1rem {
+  margin: 1rem;
+}
+
+.marginLeft0rem {
+  margin-left: 0rem;
+}
+
+.liContainer {
+  border-bottom: 1px solid $gray1;
 }

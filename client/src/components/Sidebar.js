@@ -30,6 +30,8 @@ export default function Sidebar(props) {
               catId: category._id,
               sheetCt: category.sheets.length,
               icon: category.icon,
+              authorId: category.createdBy,
+              slug: category.slug,
             });
           });
           setSidebarCatList(catArr);
@@ -47,7 +49,7 @@ export default function Sidebar(props) {
             tagArr.push({
               tagTitle: tag.tagTitle,
               tagId: tag._id,
-              url: `/tag/${tag._id}`,
+              url: `/${props.userData.id}/tag/${tag._id}`,
             });
           });
           setSidebarTagList(tagArr);
@@ -65,6 +67,7 @@ export default function Sidebar(props) {
 
   let catList = '';
   let tagList = '';
+  let joinBtn = '';
   if (userLoggedIn) {
     catList = (
       <div className={styles.listSection}>
@@ -82,7 +85,7 @@ export default function Sidebar(props) {
             <div
               className={styles.listRow}
               key={category.catId}
-              onClick={() => (window.location = `/category/${category.catId}`)}
+              onClick={() => (window.location = `/${category.authorId}/category/${category.slug}`)}
             >
               <div className={styles.colLeft}>
                 <div className={styles.colIcon}>
@@ -111,6 +114,13 @@ export default function Sidebar(props) {
             );
           })}
         </div>
+      </div>
+    );
+  } else {
+    joinBtn = (
+      <div className="flex vCenter spaceEvenly">
+        <Link to="/login">Login</Link>
+        <button className="main margin1rem">Sign Up</button>
       </div>
     );
   }
@@ -143,6 +153,7 @@ export default function Sidebar(props) {
 
       {catList}
       {tagList}
+      {joinBtn}
 
       {/* <div className={styles.listSection}>
         <div className={styles.sectionTitle}>

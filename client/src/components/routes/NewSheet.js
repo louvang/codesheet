@@ -9,6 +9,7 @@ import tabOverride from 'taboverride';
 import DownIcon from '../../assets/teeny-down-caret.svg';
 
 export default function NewSheet(props) {
+  const [userData, setUserData] = useState();
   const [content, setContent] = useState(`# Heading 1`);
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
@@ -22,6 +23,10 @@ export default function NewSheet(props) {
   });
 
   useEffect(() => {
+    if (props.userData) {
+      setUserData(props.userData);
+    }
+
     axios
       .get(`/api/categories_from/${props.userData.id}`)
       .then((res) => {
@@ -35,7 +40,7 @@ export default function NewSheet(props) {
       .catch((err) => {
         console.log(err);
       });
-  }, [props.userData.id]);
+  }, [props.userData, props.userData.id]);
 
   const handleSaveClick = () => {
     let userId = props.userData.id;
@@ -84,7 +89,7 @@ export default function NewSheet(props) {
 
   return (
     <div className="container-with-sb">
-      <Sidebar />
+      <Sidebar userData={userData} />
 
       <div className="sb-content-container2">
         <div className={`${styles.sheetSettings} ${styles.newSheetSettings}`}>

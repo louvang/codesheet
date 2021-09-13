@@ -12,6 +12,7 @@ import Icon_default from '../../assets/icons/default.svg';
 Modal.setAppElement('#root');
 
 export default function NewCategory(props) {
+  const [userData, setUserData] = useState();
   const [title, setTitle] = useState('');
   const [icon, setIcon] = useState('default');
   const [allIcons, setAllIcons] = useState();
@@ -45,7 +46,9 @@ export default function NewCategory(props) {
         .post('/api/add_category', data)
         .then((res) => {
           // TODO: Go to category page
-          window.location = '/sheet';
+          // http://localhost:3000/60c7775bb3e8821ac86b4731/category/important-notes
+          // console.log(res);
+          window.location = `/${userId}/category/${titleSlug}`;
         })
         .catch((err) => {
           console.log(err);
@@ -94,9 +97,15 @@ export default function NewCategory(props) {
     setAllIcons(myIcons);
   }, []);
 
+  useEffect(() => {
+    if (props.userData) {
+      setUserData(props.userData);
+    }
+  }, [props]);
+
   return (
     <div className="container-with-sb">
-      <Sidebar />
+      <Sidebar userData={userData} />
 
       <div className="sb-content-container">
         <div className={`${styles.sheetSettings}`}>

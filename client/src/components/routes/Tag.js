@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ReactSVG } from 'react-svg';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../Sidebar';
 import styles from './Content.module.scss';
 import Modal from 'react-modal';
-
-import AddIcon from '../../assets/teeny-add.svg';
 
 Modal.setAppElement('#root');
 
@@ -23,13 +20,12 @@ const customStyles = {
 };
 
 export default function Category(props) {
-  const { userId, categoryTitle } = useParams();
+  const { userId, tagId } = useParams();
 
   const [userData, setUserData] = useState();
   const [authorLoggedIn, setAuthorLoggedIn] = useState(false);
   const [modalOpened, setModalOpened] = useState(false);
-  const [title, setTitle] = useState('');
-  const [catId, setCatId] = useState('');
+  const [tagTitle, setTagTitle] = useState('');
   const [sheets, setSheets] = useState([]);
   const [sheetToDelete, setSheetToDelete] = useState('');
 
@@ -42,27 +38,21 @@ export default function Category(props) {
     }
 
     axios
-      .get(`/api/${userId}/category/title/${categoryTitle}`)
+      .get(`/api/${userId}/tags_by_id/${tagId}`)
       .then((res) => {
         let data = res.data;
-        setTitle(data.title);
-        setCatId(data._id);
+        setTagTitle(data.tagTitle);
+      })
+      .then((res) => {
+        axios.get(`/api/${userId}/sheets_by_tag/${tagTitle}`).then((sheetRes) => {
+          let sheetData = sheetRes.data;
+          setSheets(sheetData);
+        });
       })
       .catch((err) => {
         console.log(err);
       });
-
-    if (catId !== '') {
-      axios.get(`/api/${userId}/sheets_by_category/${catId}`).then((res) => {
-        let data = res.data;
-        setSheets(data);
-      });
-    }
-  }, [catId, categoryTitle, props.userData, userId]);
-
-  const goToAddCategoryPage = () => {
-    window.location = '/category/new';
-  };
+  }, [props.userData, tagId, userId, tagTitle]);
 
   const openModal = (e) => {
     setSheetToDelete(e.target.id);
@@ -105,19 +95,12 @@ export default function Category(props) {
           <div className={styles.catTitle}>
             <Link to={`/${userId}/view-all-sheets`}>View {authorLoggedIn ? 'All' : "User's"} Sheets</Link>
           </div>
-          <div className="flex">
-            {authorLoggedIn ? (
-              <div className={styles.settingsBtn} onClick={goToAddCategoryPage}>
-                <ReactSVG src={AddIcon} /> Add New Category
-              </div>
-            ) : null}
-          </div>
         </div>
         <div className={styles.sheet}>
           <ul className={styles.listSheets}>
             <li className={styles.listCategoryTitle}>
               <div className={styles.listHeading}>
-                <h2>Category: {title}</h2>
+                <h2>#{tagTitle}</h2>
                 {authorLoggedIn ? (
                   <Link to="/sheet/new">
                     <button className="main">Add New Sheet</button>

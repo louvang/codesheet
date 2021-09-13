@@ -390,9 +390,18 @@ ul.listSheets {
   li.listCategoryTitle {
     margin-bottom: 3rem;
 
-    h2 {
+    div.listHeading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       border-bottom: 1px solid $gray2;
-      padding-bottom: 3px;
+      padding: 1rem;
+
+      h2 {
+        padding-bottom: 3px;
+        margin-bottom: 0;
+        font-size: 2rem;
+      }
     }
 
     ul {
@@ -408,7 +417,7 @@ ul.listSheets {
       li {
         h3 {
           margin: 0;
-          padding: 0;
+          padding: 1rem;
         }
 
         p {

@@ -7,6 +7,10 @@ const User = require('../models/User');
  * Helper function - break up tags into an array
  */
 const tagsArr = (tagsStr) => {
+  if (tagsStr === '') {
+    return [];
+  }
+
   let tagsArr = [];
   let hashReg = /#/;
   let commaReg = /,/;
@@ -30,6 +34,10 @@ const tagsArr = (tagsStr) => {
  * Helper function - save tags to database
  */
 const saveTags = (finalTagsArr, bodyUserId, sheetId) => {
+  if (finalTagsArr === []) {
+    return;
+  }
+
   finalTagsArr.forEach((tag) => {
     Tag.findOne({ tagTitle: tag, tagCreatedBy: bodyUserId }, async (err, tagDoc) => {
       if (err) throw err;
@@ -138,23 +146,21 @@ exports.add_sheet = (req, res) => {
         createdBy: req.body.userId,
       });
 
-      newSheet.save();
+      await newSheet.save();
       sheetId = newSheet._id;
 
       // Save tags
-      saveTags(tagsArr(req.body.tags), req.body.userId, sheetId);
+      await saveTags(tagsArr(req.body.tags), req.body.userId, sheetId);
 
-      // Find category and add sheet's id to array
-      Category.findOne({ title: req.body.category, createdBy: req.body.userId }, async (err, categoryDoc) => {
+      // Find tags with the sheet ID and add them in sheet
+
+      Category.findOne({ _id: req.body.category }, async (err, catDoc) => {
         if (err) throw err;
-        if (categoryDoc) {
-          categoryDoc.dateUpdated = Date.now();
-          categoryDoc.sheets.push(newSheet._id);
-          await categoryDoc.save();
-          console.log('Category saved.');
+        if (catDoc) {
+          catDoc.sheets.push(sheetId);
+          await catDoc.save();
         }
       });
-
       res.send('New sheet saved.');
     }
   });
@@ -224,34 +230,6 @@ exports.add_category = (req, res) => {
       await newCategory.save();
       res.send('New category created.');
     }
-
-    User.findOne({ id: req.body.id }, async (err, userDoc) => {
-      if (err) throw err;
-      if (userDoc) {
-        userDoc.categories.push(newCategory._id);
-      }
-    });
-  });
-};
-
-/**
- * POST - Adds a new tag to the database
- */
-exports.add_tag = (req, res) => {
-  Tag.findOne({ title: req.body.title }, async (err, tagDoc) => {
-    if (err) throw err;
-    if (tagDoc) {
-      res.send('A tag with the same name already exists.');
-    }
-    if (!tagDoc) {
-      const newTag = new Tag({
-        title: req.body.title,
-        slug: req.body.slug,
-      });
-    }
-
-    await newTag.save();
-    res.send('New tag created.');
   });
 };
 
@@ -361,13 +339,16 @@ exports.get_tag_by_id = (req, res) => {
  * POST - Delete a sheet
  */
 exports.delete_sheet = (req, res) => {
-  let sheetId = req.params.sheetId;
-  let userId = req.user._id;
+  const sheetId = req.params.sheetId;
+  const userId = req.user._id;
 
   Sheet.findOne({ _id: sheetId }, async (err, sheet) => {
     if (err) throw err;
     if (sheet) {
-      if (sheet.createdBy == userId) {
+      const currUser = JSON.stringify(userId);
+      const sheetAuthor = JSON.stringify(sheet.createdBy);
+
+      if (currUser === sheetAuthor) {
         let tags = sheet.tags;
         deleteSheetFromTag(tags, userId, sheetId);
         await deleteTags(userId);
@@ -382,18 +363,17 @@ exports.delete_sheet = (req, res) => {
         });
 
         await sheet.deleteOne();
-
         res.send('Sheet deleted.');
       } else {
         res.status(401).send({ error: 'You must be the author to delete this sheet.' });
-        console.log(`userId: ${typeof userId}`);
-        console.log(`sheet author: ${typeof sheet.createdBy}`);
       }
     }
   });
 };
 
-// GET Retrieves all sheets of specified category
+/**
+ * GET - Get all sheets by category
+ */
 exports.get_sheets_by_category = (req, res) => {
   let categoryId = req.params.categoryId;
   let userId = req.params.userId;
@@ -406,4 +386,34 @@ exports.get_sheets_by_category = (req, res) => {
   });
 };
 
-// GET Retrieves all sheets of specified tag
+/**
+ * GET - Get all sheets by author
+ */
+exports.get_sheets_by_author = (req, res) => {
+  let userId = req.params.userId;
+
+  Sheet.find({ createdBy: userId }, async (err, sheets) => {
+    if (err) throw err;
+    if (sheets) {
+      res.send(sheets);
+    }
+  });
+};
+
+/**
+ * GET - Get all sheets by tag title
+ */
+exports.get_sheets_by_tagTitle = (req, res) => {
+  let tagTitle = req.params.tagTitle;
+  let userId = req.params.userId;
+
+  console.log('Sheets by tag title');
+  console.log(tagTitle);
+
+  Sheet.find({ createdBy: userId, tags: tagTitle }, async (err, sheets) => {
+    if (err) throw err;
+    if (sheets) {
+      res.send(sheets);
+    }
+  });
+};

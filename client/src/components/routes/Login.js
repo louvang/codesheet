@@ -17,7 +17,7 @@ export default function Login() {
     axios
       .post('/api/login', data)
       .then((res) => {
-        window.location = '/sheet';
+        window.location = '/';
       })
       .catch((err) => {
         setShowLoginErrMsg(true);
