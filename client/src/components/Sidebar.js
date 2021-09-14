@@ -13,6 +13,7 @@ export default function Sidebar(props) {
   const [sbTitle, setSbTitle] = useState('Codesheets');
   const [sidebarCatList, setSidebarCatList] = useState([]);
   const [sidebarTagList, setSidebarTagList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (props.userData !== undefined) {
@@ -63,6 +64,16 @@ export default function Sidebar(props) {
   const newSheetClick = (e) => {
     e.preventDefault();
     window.location.href = '/sheet/new';
+  };
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchEnter = (e) => {
+    if (e.key === 'Enter') {
+      window.location = `/search/${searchTerm}`;
+    }
   };
 
   let catList = '';
@@ -120,7 +131,9 @@ export default function Sidebar(props) {
     joinBtn = (
       <div className="flex vCenter spaceEvenly">
         <Link to="/login">Login</Link>
-        <button className="main margin1rem">Sign Up</button>
+        <Link to="/register">
+          <button className="main margin1rem">Sign Up</button>
+        </Link>
       </div>
     );
   }
@@ -129,16 +142,28 @@ export default function Sidebar(props) {
     <div className={styles.sidebar}>
       <div className={styles.userRow}>
         <div className={styles.colLogo}>
-          <img src={Logo} alt="Codesheets Logo" />
+          <Link to="/">
+            <img src={Logo} alt="Codesheets Logo" />
+          </Link>
         </div>
-        <div className={styles.colName}>{sbTitle}</div>
+        <div className={styles.colName}>
+          <Link to="/">{sbTitle}</Link>
+        </div>
         <div className={styles.colMore}>{userLoggedIn ? <img src={SettingsIcon} alt="Settings Icon" /> : null}</div>
       </div>
 
       <div className={styles.searchRow}>
         <div className={styles.searchBar}>
           <div className={styles.colSearchInput}>
-            <input type="text" placeholder="Search..." name="Search" id={styles.searchInput} />
+            <input
+              type="text"
+              placeholder="Search..."
+              name="Search"
+              id={styles.searchInput}
+              value={searchTerm}
+              onChange={handleSearch}
+              onKeyUp={handleSearchEnter}
+            />
           </div>
           <div className={styles.colSearchIcon}>
             <label htmlFor="Search">
@@ -154,233 +179,6 @@ export default function Sidebar(props) {
       {catList}
       {tagList}
       {joinBtn}
-
-      {/* <div className={styles.listSection}>
-        <div className={styles.sectionTitle}>
-          <div>Categories</div>
-          <div className={styles.addCategory} onClick={() => (window.location = '/category/new')}>
-            + New
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={HTMLIcon} />
-            </div>
-            <div className={styles.colCatTitle}>HTML</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>1</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={CSSIcon} />
-            </div>
-            <div className={styles.colCatTitle}>CSS</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>2</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={JsIcon} />
-            </div>
-            <div className={styles.colCatTitle}>JavaScript</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>13</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={ReactIcon} />
-            </div>
-            <div className={styles.colCatTitle}>React</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>4</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={NodeIcon} />
-            </div>
-            <div className={styles.colCatTitle}>Node</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>7</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={HTMLIcon} />
-            </div>
-            <div className={styles.colCatTitle}>HTML</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>1</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={CSSIcon} />
-            </div>
-            <div className={styles.colCatTitle}>CSS</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>2</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={JsIcon} />
-            </div>
-            <div className={styles.colCatTitle}>JavaScript</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>13</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={ReactIcon} />
-            </div>
-            <div className={styles.colCatTitle}>React</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>4</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={NodeIcon} />
-            </div>
-            <div className={styles.colCatTitle}>Node</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>7</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={HTMLIcon} />
-            </div>
-            <div className={styles.colCatTitle}>HTML</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>1</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={CSSIcon} />
-            </div>
-            <div className={styles.colCatTitle}>CSS</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>2</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={JsIcon} />
-            </div>
-            <div className={styles.colCatTitle}>JavaScript</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>13</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={ReactIcon} />
-            </div>
-            <div className={styles.colCatTitle}>React</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>4</div>
-          </div>
-        </div>
-
-        <div className={styles.listRow}>
-          <div className={styles.colLeft}>
-            <div className={styles.colIcon}>
-              <ReactSVG src={NodeIcon} />
-            </div>
-            <div className={styles.colCatTitle}>Node</div>
-          </div>
-          <div className={styles.colRight}>
-            <div className={styles.sheetCt}>7</div>
-          </div>
-        </div>
-      </div> */}
-
-      {/* <div className={styles.tagsSection}>
-        <div className={styles.sectionTitle}>Tags</div>
-        <div className={styles.tagsList}>
-          <div className={styles.tag}>#redux</div>
-          <div className={styles.tag}>#express</div>
-          <div className={styles.tag}>#cheatsheet</div>
-          <div className={styles.tag}>#deployment</div>
-          <div className={styles.tag}>#animation</div>
-          <div className={styles.tag}>#mongoose</div>
-          <div className={styles.tag}>#mern</div>
-          <div className={styles.tag}>#udemy</div>
-          <div className={styles.tag}>#redux</div>
-          <div className={styles.tag}>#express</div>
-          <div className={styles.tag}>#cheatsheet</div>
-          <div className={styles.tag}>#deployment</div>
-          <div className={styles.tag}>#animation</div>
-          <div className={styles.tag}>#mongoose</div>
-          <div className={styles.tag}>#mern</div>
-          <div className={styles.tag}>#udemy</div>
-          <div className={styles.tag}>#redux</div>
-          <div className={styles.tag}>#express</div>
-          <div className={styles.tag}>#cheatsheet</div>
-          <div className={styles.tag}>#deployment</div>
-          <div className={styles.tag}>#animation</div>
-          <div className={styles.tag}>#mongoose</div>
-          <div className={styles.tag}>#mern</div>
-          <div className={styles.tag}>#udemy</div>
-          <div className={styles.tag}>#redux</div>
-          <div className={styles.tag}>#express</div>
-          <div className={styles.tag}>#cheatsheet</div>
-          <div className={styles.tag}>#deployment</div>
-          <div className={styles.tag}>#animation</div>
-          <div className={styles.tag}>#mongoose</div>
-          <div className={styles.tag}>#mern</div>
-          <div className={styles.tag}>#udemy</div>
-        </div>
-      </div> */}
 
       {userLoggedIn ? (
         <div className={styles.newSheetRow}>

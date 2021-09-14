@@ -24,7 +24,7 @@ export default function redirectLoggedIn(Component) {
 
     switch (authStatus) {
       case 'succeeded':
-        return <Redirect to="/sheet" />;
+        return <Redirect to="/" />;
       case 'failed':
         return <Component />;
       default:

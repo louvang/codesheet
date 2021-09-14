@@ -1,43 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { ReactSVG } from 'react-svg';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Sidebar from '../Sidebar';
 import styles from './Content.module.scss';
 
-import AddIcon from '../../assets/teeny-add.svg';
-
 export default function Category(props) {
-  const { userId, categoryTitle } = useParams();
+  const { searchTerm } = useParams();
 
   const [userData, setUserData] = useState();
-  const [authorLoggedIn, setAuthorLoggedIn] = useState(false);
-  const [title, setTitle] = useState('');
   const [sheets, setSheets] = useState([]);
-  const [sheetToDelete, setSheetToDelete] = useState('');
 
   useEffect(() => {
+    console.log(props.userData);
     if (props.userData) {
-      if (props.userData.id === userId) {
-        setAuthorLoggedIn(true);
-      }
       setUserData(props.userData);
     }
 
     axios
-      .get(`/api/${userId}/category/title/${categoryTitle}`)
+      .get(`/api/search/${searchTerm}`)
       .then((res) => {
         let data = res.data;
-        setTitle(data.title);
+        setSheets(data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [categoryTitle, props.userData, userId]);
-
-  const goToAddCategoryPage = () => {
-    window.location = '/category/new';
-  };
+  }, [props.userData, searchTerm]);
 
   return (
     <div className="container-with-sb">
@@ -46,27 +34,18 @@ export default function Category(props) {
       <div className="sb-content-container">
         <div className={`${styles.sheetSettings}`}>
           <div className={styles.catTitle}>
-            <Link to={`/${userId}/view-all-sheets`}>View {authorLoggedIn ? 'All' : "User's"} Sheets</Link>
-          </div>
-          <div className="flex">
-            {authorLoggedIn ? (
-              <div className={styles.settingsBtn} onClick={goToAddCategoryPage}>
-                <ReactSVG src={AddIcon} /> Add New Category
-              </div>
-            ) : null}
+            <Link to="/">Index</Link>
           </div>
         </div>
         <div className={styles.sheet}>
           <ul className={styles.listSheets}>
             <li className={styles.listCategoryTitle}>
               <div className={styles.listHeading}>
-                <h2>Category: {title}</h2>
-                {authorLoggedIn ? (
-                  <Link to="/sheet/new">
-                    <button className="main">Add New Sheet</button>
-                  </Link>
-                ) : null}
+                <h2>Search results for "{searchTerm}"</h2>
               </div>
+              {sheets.length === 0 ? (
+                <div className="margin1rem">There are no sheets matching the term "{searchTerm}"</div>
+              ) : null}
               <ul>
                 {[...sheets].map((sheet) => {
                   return (
@@ -75,15 +54,6 @@ export default function Category(props) {
                         <h3>
                           <Link to={`/${sheet.createdBy}/sheet/${sheet.slug}`}>{sheet.title}</Link>
                         </h3>
-                        <div>
-                          {authorLoggedIn ? (
-                            <div>
-                              <Link to={`/${sheet.createdBy}/edit-sheet/${sheet.slug}`}>
-                                <button className="secondary margin1rem marginLeft0rem">Edit Sheet</button>
-                              </Link>
-                            </div>
-                          ) : null}
-                        </div>
                       </div>
                     </li>
                   );

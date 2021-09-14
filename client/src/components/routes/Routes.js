@@ -10,6 +10,7 @@ import Settings from './Settings';
 import AllSheets from './AllSheets';
 import NewCategory from './NewCategory';
 import Category from './Category';
+import SearchResults from './SearchResults';
 import Tag from './Tag';
 import requireAuth from '../wrappers/RequireAuth';
 import semiAuth from '../wrappers/SemiAuth';
@@ -30,6 +31,7 @@ const Routes = () => {
         <Route exact path="/category/new" component={requireAuth(NewCategory)} />
         <Route exact path="/:userId/category/:categoryTitle" component={semiAuth(Category)} />
         <Route exact path="/:userId/tag/:tagId" component={semiAuth(Tag)} />
+        <Route exact path="/search/:searchTerm" component={semiAuth(SearchResults)} />
       </Switch>
     </BrowserRouter>
   );

@@ -13,6 +13,8 @@ const {
   get_sheets_by_category,
   get_sheets_by_author,
   get_sheets_by_tagTitle,
+  get_sheets_by_search,
+  get_user_by_id,
 } = require('../controllers/sheets');
 
 const requireLogin = require('../middlewares/requireLogin');
@@ -45,4 +47,8 @@ module.exports = (app) => {
   app.get('/api/:userId/tags_by_id/:tagId', get_tag_by_id);
 
   app.get('/api/:userId/sheets_by_tag/:tagTitle', get_sheets_by_tagTitle);
+
+  app.get('/api/search/:searchTerm', get_sheets_by_search);
+
+  app.get('/api/user/:userId', get_user_by_id);
 };

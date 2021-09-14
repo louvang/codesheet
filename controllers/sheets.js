@@ -417,3 +417,55 @@ exports.get_sheets_by_tagTitle = (req, res) => {
     }
   });
 };
+
+/**
+ * GET - Get all sheets by tag title
+ */
+exports.get_sheets_by_tagTitle = (req, res) => {
+  let tagTitle = req.params.tagTitle;
+  let userId = req.params.userId;
+
+  Sheet.find({ createdBy: userId, tags: tagTitle }, async (err, sheets) => {
+    if (err) throw err;
+    if (sheets) {
+      res.send(sheets);
+    }
+  });
+};
+
+/**
+ * GET - Get sheets by search term
+ */
+exports.get_sheets_by_search = (req, res) => {
+  let searchTerm = req.params.searchTerm;
+
+  Sheet.find(
+    {
+      $or: [
+        { content: { $regex: searchTerm, $options: 'i' } },
+        { title: { $regex: searchTerm, $options: 'i' } },
+        { tags: { $regex: searchTerm, $options: 'i' } },
+      ],
+    },
+    async (err, sheets) => {
+      if (err) throw err;
+      if (sheets) {
+        res.send(sheets);
+      }
+    }
+  );
+};
+
+/**
+ * GET - Get user info by ID
+ */
+exports.get_user_by_id = (req, res) => {
+  let userId = req.params.userId;
+
+  User.findOne({ _id: userId }, async (err, user) => {
+    if (err) throw err;
+    if (user) {
+      res.send({ name: user.name, id: user.id });
+    }
+  });
+};

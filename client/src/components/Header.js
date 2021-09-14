@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserData, selectAuthStatus, fetchUser } from '../redux/authSlice';
 import axios from 'axios';
 import styles from './Header.module.scss';
+import Logo from '../assets/logo-32x32.png';
 
 export default function Header() {
   const userData = useSelector(selectUserData);
@@ -37,7 +38,12 @@ export default function Header() {
     case 'failed':
       authContent = (
         <div>
-          <a href="/login">Login</a> or <a href="/register">Register</a>
+          <a href="/login">
+            <button className="main marginRight1rem">Login</button>
+          </a>
+          <a href="/register">
+            <button className="main">Register</button>
+          </a>
         </div>
       );
       break;
@@ -47,7 +53,10 @@ export default function Header() {
 
   return (
     <header>
-      <div className={styles.logoContainer}>Codesheets</div>
+      <div className={styles.logoContainer}>
+        <img src={Logo} alt="Codesheets Logo" className={styles.logoImg} />
+        Codesheets
+      </div>
       {authContent}
     </header>
   );

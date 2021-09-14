@@ -30,9 +30,12 @@ export default function AllSheets(props) {
   const [sheets, setSheets] = useState([]);
   const [modalOpened, setModalOpened] = useState(false);
   const [sheetToDelete, setSheetToDelete] = useState('');
+  const [sheetAuthorId, setSheetAuthorId] = useState('');
+  const [pageTitle, setPageTitle] = useState('All Sheets');
 
   useEffect(() => {
     if (props.userData) {
+      console.log(props.userData);
       if (props.userData.id === userId) {
         setAuthorLoggedIn(true);
       }
@@ -43,12 +46,23 @@ export default function AllSheets(props) {
       .get(`/api/${userId}/sheets_by_author`)
       .then((res) => {
         let data = res.data;
+        setSheetAuthorId(data[0].createdBy);
         setSheets(data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [props.userData, userId]);
+
+    axios
+      .get(`/api/user/${sheetAuthorId}`)
+      .then((userRes) => {
+        let sheetAuthorData = userRes.data;
+        setPageTitle(`${sheetAuthorData.name}'s Sheets`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [props.userData, sheetAuthorId, userId]);
 
   const goToAddCategoryPage = () => {
     window.location = '/category/add';
@@ -92,7 +106,7 @@ export default function AllSheets(props) {
         </Modal>
 
         <div className={`${styles.sheetSettings}`}>
-          <div className={styles.catTitle}>All Sheets</div>
+          <div className={styles.catTitle}>{pageTitle}</div>
           <div className="flex">
             {authorLoggedIn ? (
               <div className={styles.settingsBtn} onClick={goToAddCategoryPage}>
@@ -105,7 +119,7 @@ export default function AllSheets(props) {
           <ul className={styles.listSheets}>
             <li className={styles.listCategoryTitle}>
               <div className={styles.listHeading}>
-                <h2>All Sheets</h2>
+                <h2>{pageTitle}</h2>
                 {authorLoggedIn ? (
                   <Link to="/sheet/new">
                     <button className="main">Add New Sheet</button>

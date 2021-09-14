@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectUserData, selectAuthStatus, fetchUser } from '../../redux/authSlice';
 import Header from '../Header';
-import Sidebar from '../Sidebar';
-import Dashboard from '../Dashboard';
+import Preview from '../../assets/preview.gif';
+import IllustSingle from '../../assets/illust-single.jpg';
+import IllustSave from '../../assets/illust-save.jpg';
 
 export default function App() {
   document.title = 'Codesheets: Note-taking for developers';
@@ -20,29 +22,80 @@ export default function App() {
 
   switch (authStatus) {
     case 'succeeded':
-      content = (
-        <div className="container-with-sb">
-          <Sidebar userData={userData} />
-          {/* <Content data={userData.lastOpened} /> */}
-          <Dashboard userData={userData} />
-        </div>
-      );
+      window.location = `/${userData.id}/view-all-sheets`;
       break;
     case 'failed':
       content = (
         <div>
           <Header />
           <div className="content-container">
-            <h1>Notes for Developers</h1>
+            <div className="col-container">
+              <div className="col-2 img-col marginRight1rem">
+                <img src={IllustSingle} alt="One Developers Engaging in Code" />
+                <div className="attribute">
+                  <a href="https://www.freepik.com/vectors/technology" target="_blank" rel="noreferrer">
+                    freepik
+                  </a>
+                </div>
+              </div>
+              <div className="col-2 flex vCenter marginLeft1rem">
+                <div>
+                  <h1>Where Devs Take Note</h1>
+                  <p>
+                    Have too many languages to juggle? Write your notes in Markdown or HTML and save them to your
+                    Codesheets where you can share with your peers and access them wherever, whenever.
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            <p>Preview image of notes.</p>
+            {/* <div className="img-container">
+              <img src={IllustDouble} alt="Two Developers Working on Code" />
+            </div> */}
 
-            <h2>Special features</h2>
+            <div className="prev-container">
+              <img src={Preview} alt="Preview of Codesheets" />
+            </div>
 
             <div className="col-container">
-              <div className="col-3">Column 1</div>
-              <div className="col-3">Column 2</div>
-              <div className="col-3">Column 3</div>
+              <div className="col-2 margin1rem shrink flex vCenter">
+                <div>
+                  <h1>Try Codesheets for Free</h1>
+                  <p>
+                    View Codesheets in action with our demo account or{' '}
+                    <Link to="/613fe707debe5629ae81112e/view-all-sheets">view it as a peer</Link>.
+                  </p>
+                  <p>
+                    <strong>Username:</strong> demo@codesheets.com
+                    <br />
+                    <strong>Password:</strong> Demo1234
+                  </p>
+
+                  <Link to="/login">
+                    <button className="main">Log In</button>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="col-2 margin1rem">
+                <div className="img-container">
+                  <img src={IllustSave} alt="Save your notes to Codesheets" />
+                  <div className="attribute">
+                    <a href="https://www.freepik.com/vectors/computer">freepik</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="footer">
+              <div className="col-container">
+                <div className="col-4">
+                  <button className="faux">Privacy Policy</button> | <button className="faux">Terms of Use</button>
+                </div>
+                <div className="col-4"></div>
+                <div className="col-4"></div>
+                <div className="col-4 textRight">&copy; 2021 Lou Vang</div>
+              </div>
             </div>
           </div>
         </div>

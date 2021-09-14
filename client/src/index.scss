@@ -32,10 +32,12 @@ button:hover {
 
 button.main {
   background-color: $mainAccent;
+  color: $secondAccent;
 }
 
 button.main:hover {
   background-color: $secondAccent;
+  color: white;
 }
 
 button.secondary {
@@ -44,6 +46,7 @@ button.secondary {
 
 button.secondary:hover {
   background-color: $mainAccent;
+  color: $secondAccent;
 }
 
 a {
@@ -93,16 +96,118 @@ a:hover {
 
 /** Index Page **/
 .content-container {
-  margin: 1rem 3rem;
+  margin: 1rem auto 0rem;
   line-height: 140%;
+  // max-width: 960px;
+
+  p {
+    font-size: 1.25rem;
+  }
 }
 
 .col-container {
   display: flex;
+  max-width: 960px;
+  margin: 1rem auto;
+}
+
+.col-1 {
+  width: 100%;
+}
+
+.col-2 {
+  width: 50%;
+
+  p {
+    font-size: 1.5rem;
+    line-height: 150%;
+  }
+}
+
+.img-col {
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-width: 500px;
+  }
 }
 
 .col-3 {
   width: 30%;
+}
+
+div.prev-container {
+  margin: 0 auto;
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    border: 1px solid $gray2;
+    border-radius: 1rem;
+  }
+}
+
+div.img-container {
+  margin: 0 auto;
+  text-align: center;
+
+  img {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+}
+
+.attribute {
+  text-align: right;
+  font-size: 0.875rem;
+  font-style: italic;
+
+  a {
+    color: $gray3;
+    text-decoration: none;
+  }
+}
+
+h1.index-head {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.footer {
+  margin-top: 3rem;
+  border-top: 1px solid $gray1;
+  padding: 1rem;
+  background-color: #000;
+  color: #fff;
+}
+
+.shrink {
+  p {
+    font-size: 1.25rem;
+  }
+}
+
+.col-4 {
+  width: 25%;
+  color: $gray4;
+
+  button.faux {
+    color: #fff;
+    background-color: transparent;
+    margin: 0;
+    margin-top: -10px;
+    padding: 0;
+    text-decoration: underline;
+  }
+
+  button.faux:hover {
+    color: $gray3;
+  }
 }
 
 /** Basics **/
@@ -134,6 +239,30 @@ a:hover {
   margin-left: 0rem;
 }
 
+.marginLeft1rem {
+  margin-left: 1rem;
+}
+
+.marginRight1rem {
+  margin-right: 1rem;
+}
+
 .liContainer {
   border-bottom: 1px solid $gray1;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.textRight {
+  text-align: right;
+}
+
+pre {
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
