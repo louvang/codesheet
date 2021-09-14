@@ -8,7 +8,7 @@ import IllustSingle from '../../assets/illust-single.jpg';
 import IllustSave from '../../assets/illust-save.jpg';
 
 export default function App() {
-  document.title = 'Codesheets: Note-taking for developers';
+  document.title = 'Codesheet: Note-taking for developers';
   const userData = useSelector(selectUserData);
   const authStatus = useSelector(selectAuthStatus);
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ export default function App() {
                   <h1>Where Devs Take Note</h1>
                   <p>
                     Have too many languages to juggle? Write your notes in Markdown or HTML and save them to your
-                    Codesheets where you can share with your peers and access them wherever, whenever.
+                    Codesheet account where you can share with your peers and access them wherever, whenever.
                   </p>
                 </div>
               </div>
@@ -54,19 +54,19 @@ export default function App() {
             </div> */}
 
             <div className="prev-container">
-              <img src={Preview} alt="Preview of Codesheets" />
+              <img src={Preview} alt="Preview of Codesheet" />
             </div>
 
             <div className="col-container">
               <div className="col-2 margin1rem shrink flex vCenter">
                 <div>
-                  <h1>Try Codesheets for Free</h1>
+                  <h1>Try Codesheet for Free</h1>
                   <p>
-                    View Codesheets in action with our demo account or{' '}
+                    View Codesheet in action with our demo account or{' '}
                     <Link to="/613fe707debe5629ae81112e/view-all-sheets">view it as a peer</Link>.
                   </p>
                   <p>
-                    <strong>Username:</strong> demo@codesheets.com
+                    <strong>Email:</strong> demo@codesheet.com
                     <br />
                     <strong>Password:</strong> Demo1234
                   </p>
@@ -79,7 +79,7 @@ export default function App() {
 
               <div className="col-2 margin1rem">
                 <div className="img-container">
-                  <img src={IllustSave} alt="Save your notes to Codesheets" />
+                  <img src={IllustSave} alt="Save your notes to Codesheet" />
                   <div className="attribute">
                     <a href="https://www.freepik.com/vectors/computer">freepik</a>
                   </div>

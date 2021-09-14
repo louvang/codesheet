@@ -4,13 +4,13 @@ import { ReactSVG } from 'react-svg';
 import axios from 'axios';
 import styles from './Sidebar.module.scss';
 import Logo from '../assets/logo-32x32.png';
-import SettingsIcon from '../assets/teeny-settings.svg';
+import LogoutIcon from '../assets/teeny-logout.svg';
 import XIcon from '../assets/teeny-x.svg';
 import SearchIcon from '../assets/teeny-search.svg';
 
 export default function Sidebar(props) {
   const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [sbTitle, setSbTitle] = useState('Codesheets');
+  const [sbTitle, setSbTitle] = useState('Codesheet');
   const [sidebarCatList, setSidebarCatList] = useState([]);
   const [sidebarTagList, setSidebarTagList] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -74,6 +74,17 @@ export default function Sidebar(props) {
     if (e.key === 'Enter') {
       window.location = `/search/${searchTerm}`;
     }
+  };
+
+  const handleLogout = () => {
+    axios
+      .get(`/api/logout`)
+      .then((res) => {
+        window.location = '/';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   let catList = '';
@@ -143,13 +154,17 @@ export default function Sidebar(props) {
       <div className={styles.userRow}>
         <div className={styles.colLogo}>
           <Link to="/">
-            <img src={Logo} alt="Codesheets Logo" />
+            <img src={Logo} alt="Codesheet Logo" />
           </Link>
         </div>
         <div className={styles.colName}>
           <Link to="/">{sbTitle}</Link>
         </div>
-        <div className={styles.colMore}>{userLoggedIn ? <img src={SettingsIcon} alt="Settings Icon" /> : null}</div>
+        <div className={styles.colMore}>
+          {userLoggedIn ? (
+            <img src={LogoutIcon} alt="Logout Icon" onClick={handleLogout} className={styles.logoutIcon} />
+          ) : null}
+        </div>
       </div>
 
       <div className={styles.searchRow}>

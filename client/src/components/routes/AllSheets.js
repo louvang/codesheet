@@ -65,7 +65,7 @@ export default function AllSheets(props) {
   }, [props.userData, sheetAuthorId, userId]);
 
   const goToAddCategoryPage = () => {
-    window.location = '/category/add';
+    window.location = '/category/new';
   };
 
   const openModal = (e) => {

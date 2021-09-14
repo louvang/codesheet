@@ -54,8 +54,8 @@ export default function Header() {
   return (
     <header>
       <div className={styles.logoContainer}>
-        <img src={Logo} alt="Codesheets Logo" className={styles.logoImg} />
-        Codesheets
+        <img src={Logo} alt="Codesheet Logo" className={styles.logoImg} />
+        Codesheet
       </div>
       {authContent}
     </header>

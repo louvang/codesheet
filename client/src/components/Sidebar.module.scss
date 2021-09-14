@@ -35,6 +35,10 @@
 
   .colMore {
     width: 30px;
+
+    .logoutIcon:hover {
+      cursor: pointer;
+    }
   }
 }
 
