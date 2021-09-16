@@ -2,7 +2,7 @@
 
 Codesheet is a note-taking app for developers. Devs can write notes using Markdown or HTML and share these notes with peers. These notes, referred to as "sheets", are categorized, tagged, and searchable.
 
-<p align="center"><a href="https://codesheet.herokuapp.com/" target="_blank"><img src="https://codesheet.herokuapp.com/static/media/preview.78f22bb2.gif" alt="Codesheet" width="750px" /></a></p>
+<p align="center"><a href="https://codesheet.herokuapp.com/" target="_blank"><img src="https://raw.githubusercontent.com/louvang/codesheet/main/client/src/assets/preview.gif" alt="Codesheet" width="750px" /></a></p>
 
 ## How To
 
