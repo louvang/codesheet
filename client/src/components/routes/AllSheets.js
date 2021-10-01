@@ -57,7 +57,10 @@ export default function AllSheets(props) {
       .get(`/api/user/${sheetAuthorId}`)
       .then((userRes) => {
         let sheetAuthorData = userRes.data;
-        setPageTitle(`${sheetAuthorData.name}'s Sheets`);
+        return sheetAuthorData.name;
+      })
+      .then((res) => {
+        setPageTitle(`${res}'s Sheets`);
       })
       .catch((err) => {
         console.log(err);
