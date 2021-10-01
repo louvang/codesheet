@@ -35,7 +35,6 @@ export default function AllSheets(props) {
 
   useEffect(() => {
     if (props.userData) {
-      console.log(props.userData);
       if (props.userData.id === userId) {
         setAuthorLoggedIn(true);
       }
@@ -60,7 +59,9 @@ export default function AllSheets(props) {
         return sheetAuthorData.name;
       })
       .then((res) => {
-        setPageTitle(`${res}'s Sheets`);
+        if (res !== undefined) {
+          setPageTitle(`${res}'s Sheets`);
+        }
       })
       .catch((err) => {
         console.log(err);
